@@ -10,6 +10,7 @@
 MODULE mo_jsb_interface_mock
 
   USE mo_kind,                ONLY: wp
+  USE mo_exception,           ONLY: message
   USE mo_jsb_interface,       ONLY: jsbach_interface_original => jsbach_interface
   USE m_serialize
 
@@ -27,6 +28,8 @@ MODULE mo_jsb_interface_mock
   TYPE(t_savepoint) :: jsbmock_savepoint
   LOGICAL :: jsbmock_capture_enabled = .FALSE.
   LOGICAL :: jsbmock_replay_enabled = .FALSE.
+
+  CHARACTER(len=*), PARAMETER :: modname = 'mo_jsb_interface_mock'
 
 CONTAINS
 
@@ -57,7 +60,11 @@ CONTAINS
       & ice_fract_lake(:)
     REAL(wp), INTENT(out), OPTIONAL :: evapopot(:)
 
+    CHARACTER(len=*), PARAMETER :: routine = modname//':interface_full'
+
+
     IF (jsbmock_replay_enabled) THEN
+      CALL message(TRIM(routine), 'Replay JSBACH output')
       CALL jsbmock_read(t_srf, t_eff_srf, qsat_srf, s_srf, fact_q_air, fact_qsat_srf, &
         & evapotrans, latent_hflx, sensible_hflx, grnd_hflx, grnd_hcap, rough_h_srf, rough_m_srf, q_snocpymlt, alb_vis_dir,    &
         & alb_nir_dir, alb_vis_dif, alb_nir_dif, CO2_flux,                                                                     &
@@ -74,6 +81,7 @@ CONTAINS
         & q_bcoef_ice, t_lwtr, qsat_lwtr, evapo_wtr, latent_hflx_wtr, sensible_hflx_wtr, albedo_lwtr, t_lice, qsat_lice,       &
         & evapo_ice, latent_hflx_ice, sensible_hflx_ice, albedo_lice, ice_fract_lake, evapopot)
 
+      CALL message(TRIM(routine), 'Capture JSBACH output')
       CALL jsbmock_write(t_srf, t_eff_srf, qsat_srf, s_srf, fact_q_air, fact_qsat_srf, &
         & evapotrans, latent_hflx, sensible_hflx, grnd_hflx, grnd_hcap, rough_h_srf, rough_m_srf, q_snocpymlt, alb_vis_dir,    &
         & alb_nir_dir, alb_vis_dif, alb_nir_dif, CO2_flux,                                                                     &
