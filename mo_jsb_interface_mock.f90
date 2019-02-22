@@ -24,15 +24,54 @@ MODULE mo_jsb_interface_mock
 
   TYPE(t_serializer) :: jsbmock_serializer
   TYPE(t_savepoint) :: jsbmock_savepoint
-  LOGICAL :: jsbmock_capture_enabled
-  LOGICAL :: jsbmock_replay_enabled
+  LOGICAL :: jsbmock_capture_enabled = .FALSE.
+  LOGICAL :: jsbmock_replay_enabled = .FALSE.
 
 CONTAINS
 
   SUBROUTINE jsbmock_start_capture(directory, prefix, savepoint, append)
+
     CHARACTER(LEN=*), INTENT(IN)  :: directory, prefix, savepoint
     LOGICAL, INTENT(in), OPTIONAL :: append
+
+    CHARACTER                     :: mode
+
+    mode = 'w'
+    IF (PRESENT(append)) THEN
+      IF (append) THEN
+        mode = 'a'
+      END IF
+    END IF
+
+    CALL fs_create_serializer(directory, prefix, mode, jsbmock_serializer)
+    CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
+
+    jsbmock_capture_enabled = .TRUE.
+    jsbmock_replay_enabled = .FALSE.
+
   END SUBROUTINE jsbmock_start_capture
+
+  SUBROUTINE jsbmock_start_replay(directory, prefix, savepoint)
+
+    CHARACTER(LEN=*), INTENT(IN)  :: directory, prefix, savepoint
+
+    CALL fs_create_serializer(directory, prefix, 'r', jsbmock_serializer)
+    CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
+
+    jsbmock_capture_enabled = .FALSE.
+    jsbmock_replay_enabled = .TRUE.
+
+  END SUBROUTINE jsbmock_start_replay
+
+  SUBROUTINE jsbmock_stop()
+
+    CALL fs_destroy_serializer(jsbmock_serializer)
+    CALL fs_destroy_savepoint(jsbmock_savepoint)
+
+    jsbmock_capture_enabled = .FALSE.
+    jsbmock_replay_enabled = .FALSE.
+
+  END SUBROUTINE jsbmock_stop
 
   SUBROUTINE interface_full(model_id, iblk, ics, ice, dtime, steplen, t_air, q_air, rain, snow, wind_air, wind_10m,            &
     & lw_srf_down, swvis_srf_down, swnir_srf_down, swpar_srf_down, fract_par_diffuse, press_srf, drag_srf, t_acoef,            &
