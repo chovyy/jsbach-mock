@@ -15,7 +15,7 @@ MODULE mo_jsb_interface_mock
   IMPLICIT NONE
   PRIVATE
 
-  PUBLIC :: jsbach_interface
+  PUBLIC :: jsbach_interface, jsbmock_start_capture, jsbmock_start_replay, jsbmock_stop
 
   INTERFACE jsbach_interface
     MODULE PROCEDURE interface_full
