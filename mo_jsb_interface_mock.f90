@@ -198,68 +198,68 @@ CONTAINS
       & ice_fract_lake(:)
     REAL(wp), INTENT(out), OPTIONAL :: evapopot(:)
 
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 't_srf', t_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 't_eff_srf', t_eff_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'qsat_srf', qsat_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 's_srf', s_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'fact_q_air', fact_q_air)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'fact_qsat_srf', fact_qsat_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'evapotrans', evapotrans)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx', latent_hflx)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx', sensible_hflx)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'grnd_hflx', grnd_hflx)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'grnd_hcap', grnd_hcap)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'rough_h_srf', rough_h_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'rough_m_srf', rough_m_srf)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'q_snocpymlt', q_snocpymlt)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'alb_vis_dir', alb_vis_dir)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'alb_nir_dir', alb_nir_dir)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'alb_vis_dif', alb_vis_dif)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'alb_nir_dif', alb_nir_dif)
-    CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'CO2_flux', CO2_flux)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 't_srf', t_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 't_eff_srf', t_eff_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'qsat_srf', qsat_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 's_srf', s_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'fact_q_air', fact_q_air)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'fact_qsat_srf', fact_qsat_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'evapotrans', evapotrans)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx', latent_hflx)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx', sensible_hflx)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'grnd_hflx', grnd_hflx)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'grnd_hcap', grnd_hcap)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'rough_h_srf', rough_h_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'rough_m_srf', rough_m_srf)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'q_snocpymlt', q_snocpymlt)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'alb_vis_dir', alb_vis_dir)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'alb_nir_dir', alb_nir_dir)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'alb_vis_dif', alb_vis_dif)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'alb_nir_dif', alb_nir_dif)
+    CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'CO2_flux', CO2_flux)
 
     IF (PRESENT(t_lwtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 't_lwtr', t_lwtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 't_lwtr', t_lwtr)
     END IF
     IF (PRESENT(qsat_lwtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'qsat_lwtr', qsat_lwtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'qsat_lwtr', qsat_lwtr)
     END IF
     IF (PRESENT(evapo_wtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'evapo_wtr', evapo_wtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'evapo_wtr', evapo_wtr)
     END IF
     IF (PRESENT(latent_hflx_wtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx_wtr', latent_hflx_wtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx_wtr', latent_hflx_wtr)
     END IF
     IF (PRESENT(sensible_hflx_wtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx_wtr', sensible_hflx_wtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx_wtr', sensible_hflx_wtr)
     END IF
     IF (PRESENT(albedo_lwtr)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'albedo_lwtr', albedo_lwtr)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'albedo_lwtr', albedo_lwtr)
     END IF
     IF (PRESENT(t_lice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 't_lice', t_lice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 't_lice', t_lice)
     END IF
     IF (PRESENT(qsat_lice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'qsat_lice', qsat_lice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'qsat_lice', qsat_lice)
     END IF
     IF (PRESENT(evapo_ice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'evapo_ice', evapo_ice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'evapo_ice', evapo_ice)
     END IF
     IF (PRESENT(latent_hflx_ice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx_ice', latent_hflx_ice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'latent_hflx_ice', latent_hflx_ice)
     END IF
     IF (PRESENT(sensible_hflx_ice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx_ice', sensible_hflx_ice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'sensible_hflx_ice', sensible_hflx_ice)
     END IF
     IF (PRESENT(albedo_lice)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'albedo_lice', albedo_lice)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'albedo_lice', albedo_lice)
     END IF
     IF (PRESENT(ice_fract_lake)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'ice_fract_lake', ice_fract_lake)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'ice_fract_lake', ice_fract_lake)
     END IF
 
     IF (PRESENT(evapopot)) THEN
-      CALL fs_read_mock(jsbmock_serializer, jsbmock_savepoint, 'evapopot', evapopot)
+      CALL fs_read_field(jsbmock_serializer, jsbmock_savepoint, 'evapopot', evapopot)
     END IF
 
   END SUBROUTINE jsbmock_read
