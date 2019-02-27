@@ -62,7 +62,6 @@ CONTAINS
 
     CHARACTER(len=*), PARAMETER :: routine = modname//':interface_full'
 
-
     IF (jsbmock_replay_enabled) THEN
       CALL message(TRIM(routine), 'Replay JSBACH output')
       CALL jsbmock_read(t_srf, t_eff_srf, qsat_srf, s_srf, fact_q_air, fact_qsat_srf, &
@@ -282,7 +281,6 @@ CONTAINS
     CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
 
     jsbmock_capture_enabled = .TRUE.
-    jsbmock_replay_enabled = .FALSE.
 
   END SUBROUTINE jsbmock_start_capture
 
