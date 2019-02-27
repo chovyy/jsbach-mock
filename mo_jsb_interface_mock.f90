@@ -270,17 +270,19 @@ CONTAINS
 
     CHARACTER                     :: mode
 
-    mode = 'w'
-    IF (PRESENT(append)) THEN
-      IF (append) THEN
-        mode = 'a'
+    IF (.NOT. jsbmock_replay_enabled) THEN
+      mode = 'w'
+      IF (PRESENT(append)) THEN
+        IF (append) THEN
+          mode = 'a'
+        END IF
       END IF
+
+      CALL fs_create_serializer(directory, prefix, mode, jsbmock_serializer)
+      CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
+
+      jsbmock_capture_enabled = .TRUE.
     END IF
-
-    CALL fs_create_serializer(directory, prefix, mode, jsbmock_serializer)
-    CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
-
-    jsbmock_capture_enabled = .TRUE.
 
   END SUBROUTINE jsbmock_start_capture
 
@@ -291,7 +293,6 @@ CONTAINS
     CALL fs_create_serializer(directory, prefix, 'r', jsbmock_serializer)
     CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
 
-    jsbmock_capture_enabled = .FALSE.
     jsbmock_replay_enabled = .TRUE.
 
   END SUBROUTINE jsbmock_start_replay
