@@ -17,7 +17,8 @@ MODULE mo_jsb_interface_mock
   IMPLICIT NONE
   PRIVATE
 
-  PUBLIC :: jsbach_interface, jsbmock_start_capture, jsbmock_start_replay, jsbmock_stop
+  PUBLIC :: jsbach_interface, jsbmock_start_capture, jsbmock_start_replay, jsbmock_stop, &
+            jsbmock_capture_active, jsbmock_replay_active
 
   INTERFACE jsbach_interface
     MODULE PROCEDURE interface_full
@@ -294,6 +295,7 @@ CONTAINS
     CALL fs_create_savepoint(savepoint, jsbmock_savepoint)
 
     jsbmock_replay_enabled = .TRUE.
+    jsbmock_capture_enabled = .FALSE.
 
   END SUBROUTINE jsbmock_start_replay
 
@@ -306,5 +308,13 @@ CONTAINS
     jsbmock_replay_enabled = .FALSE.
 
   END SUBROUTINE jsbmock_stop
+
+  LOGICAL FUNCTION jsbmock_capture_active()
+    jsbmock_capture_active = jsbmock_capture_enabled
+  END FUNCTION jsbmock_capture_active
+
+  LOGICAL FUNCTION jsbmock_replay_active()
+    jsbmock_replay_active = jsbmock_replay_enabled
+  END FUNCTION jsbmock_replay_active
 
 END MODULE mo_jsb_interface_mock
